@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - db-data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/network_inventory.db
+      - SECRET_KEY=change-this-in-production
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  microservice:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    volumes:
+      - ./microservices:/app
+      - db-data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/network_inventory.db
+      - SYNC_INTERVAL_MINUTES=60
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge
