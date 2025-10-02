@@ -115,6 +115,11 @@ network-device-inventory/
 - [x] Set up Next.js project structure
 - [x] Configure development environment
 - [x] Create README documentation
+- [x] Set up TypeScript configuration
+- [x] Configure Tailwind CSS
+- [x] Create basic API structure
+- [x] Set up testing framework
+- [x] Configure ESLint
 
 #### Phase 2: Core Features (In Progress)
 - [ ] Set up database schema
@@ -181,6 +186,7 @@ network-device-inventory/
 - `GET /api/devices` - List all devices
 - `GET /api/devices/:id` - Get device details
 - `POST /api/devices` - Create new device
+- `POST /api/devices/discovery` - Create/Import all new devices from list of ip adress
 - `PUT /api/devices/:id` - Update device
 - `DELETE /api/devices/:id` - Delete device
 
